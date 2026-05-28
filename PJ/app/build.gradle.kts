@@ -62,4 +62,5 @@ dependencies {
     implementation("com.google.zxing:core:3.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.activity:activity-compose:1.9.0")
 }
