@@ -1,0 +1,35 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+local.properties
+app/google-services.json
+
+# Node
+node_modules/
+dist/
+build/
+coverage/
+npm-debug.log*
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Android / Gradle
+.gradle/
+**/build/
+
+# Data that is regenerated locally
+ORV/cv-project/data/users/
+ORV/cv-project/data/model/*.pkl
+ORV/cv-project/data/model/*.json
