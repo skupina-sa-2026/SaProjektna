@@ -1,0 +1,48 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: smartlocker-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  smartlocker-api:
+    build:
+      context: ./RAI/SmartLocker
+    container_name: smartlocker-api
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      MONGO_URI: mongodb://mongo:27017/airbnb_smart_locker
+      JWT_SECRET: ${JWT_SECRET:-zamenjaj_to_skrivnost}
+    depends_on:
+      - mongo
+
+  smartlocker-frontend:
+    build:
+      context: ./RAI/SmartLocker/frontend
+      args:
+        VITE_API_URL: http://localhost:5000
+    container_name: smartlocker-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - smartlocker-api
+
+  face-api:
+    build:
+      context: ./ORV/cv-project
+    container_name: smartlocker-face-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ORV/cv-project/data:/app/data
+
+volumes:
+  mongo_data:

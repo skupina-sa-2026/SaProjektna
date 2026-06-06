@@ -1,0 +1,4 @@
+# Lokalna konfiguracija - te datoteke ne commitajte kot local.properties.
+# V Android Studiu ustvarite local.properties in dodajte svoj kljuc.
+DIRECT4ME_API_KEY=your_direct4me_api_key_here
+DIRECT4ME_API_URL=https://api-d4me-stage.direct4.me/sandbox/v1/Access/openbox
