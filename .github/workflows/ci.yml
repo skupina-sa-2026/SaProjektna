@@ -53,23 +53,31 @@ jobs:
       - run: pytest
 
   android-unit-tests:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: PJ/MobiApp
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 17
-      - uses: android-actions/setup-android@v3
-      - name: Prepare local properties
-        run: |
-          echo "DIRECT4ME_API_KEY=${{ secrets.DIRECT4ME_API_KEY }}" > local.properties
-          echo "DIRECT4ME_API_URL=https://api-d4me-stage.direct4.me/sandbox/v1/Access/openbox" >> local.properties
-      - name: Run Android unit tests
-        run: ./gradlew testDebugUnitTest
+  runs-on: ubuntu-latest
+  defaults:
+    run:
+      working-directory: PJ/MobiApp
+
+  steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: 17
+
+    - uses: android-actions/setup-android@v3
+
+    - name: Prepare local properties
+      run: |
+        echo "DIRECT4ME_API_KEY=${{ secrets.DIRECT4ME_API_KEY }}" > local.properties
+        echo "DIRECT4ME_API_URL=https://api-d4me-stage.direct4.me/sandbox/v1/Access/openbox" >> local.properties
+
+    - name: Make Gradle wrapper executable
+      run: chmod +x ./gradlew
+
+    - name: Run Android unit tests
+      run: ./gradlew testDebugUnitTest
 
   docker-build:
     runs-on: ubuntu-latest
